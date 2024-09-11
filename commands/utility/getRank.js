@@ -2,8 +2,8 @@ const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('points')
-        .setDescription('This tells the user their current clan points.'),
+        .setName('rank')
+        .setDescription('This tells the user their current clan rank.'),
     async execute(interaction) {
         try {
             const discordUsername = interaction.user.username;
@@ -15,15 +15,15 @@ module.exports = {
             if (response.ok) {
                 const data = await response.json();
                 // Respond with the user's points
-                await interaction.reply(`Your current clan points are: ${data.points}`);
+                await interaction.reply(`Your current clan rank is: ${data.rank}`);
             } else if (response.status === 404) {
-                await interaction.reply('You are not registered in the clan points system.');
+                await interaction.reply('You are not registered in the clan system.');
             } else {
-                throw new Error('Failed to fetch points');
+                throw new Error('Failed to fetch rank');
             }
         } catch (error) {
             console.error(error);
-            await interaction.reply('An error occurred while retrieving your points.');
+            await interaction.reply('An error occurred while retrieving your rank.');
         }
     }
 };
